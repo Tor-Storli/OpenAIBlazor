@@ -1,0 +1,45 @@
+﻿@inject NavigationManager NavigationManager
+
+@page "/dalleinfoprompts"
+<PageTitle>OpenAI Blazor </PageTitle>
+<div class="h1 mb-4 text-center"> OpenAI - DALLE 2 Prompts </div>
+<div class="container">
+    <button class="btn btn-success mb-4 px-2" style="max-width:200px;" onclick="@ClosePopupForm">
+        Close
+    </button><br />
+</div>
+<div style="line-height:30px;" class="h4 mb-4 text-center">Here is some tips on how to generate good results in DALLE 2 </div>
+<br />
+<div class="popup-form">
+    <form>
+     <div class="text">
+        <h1>DALL·E 2</h1>
+        <p>To formulate great prompts for DALL-E 2, which is a machine learning model that generates photo-realistic images from textual descriptions, follow these tips:</p>
+        <p>Be specific: The more specific your prompt is, the better the results will be. Avoid vague descriptions and provide as much detail as possible. For example, instead of saying "a dog," specify the breed, size, color, and context of the dog.</p>
+        <p>Use clear language: Use clear and concise language in your prompt. Avoid using metaphors, idioms, or overly complex language that may be difficult for the machine learning model to understand.</p>
+        <p>Use descriptive words: Use descriptive words to convey the visual details of the object or scene you want to generate. For example, instead of saying "a red car," describe the make and model, the type of wheels, the color of the paint, and any other relevant details.</p>
+        <p>Use multiple sentences: Break up your prompt into multiple sentences if necessary to provide more information and details. This can help the model understand the context of the prompt and generate better results.</p>
+        <p>Use examples: Use examples of images that are similar to what you want to generate to help the model better understand your prompt.</p>
+        <p>Be patient: Generating photo-realistic images with DALL-E 2 can take some time. Be patient and allow the model enough time to generate the results.</p>
+        <br /><br />
+        <div class="sourcetext">
+            <p>Source: ChatGPT</p>
+        </div>
+    </div>
+    </form>
+</div>
+
+@code {
+
+    private bool showPopupForm = false;
+
+    private void ShowPopupForm()
+    {
+        showPopupForm = true;
+    }
+
+    private void ClosePopupForm()
+    {
+        showPopupForm = false;
+    }
+}

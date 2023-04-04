@@ -1,0 +1,34 @@
+﻿@page "/chat"
+<PageTitle>ChatGPT </PageTitle>
+    <div id="divContainer" class="chat-container">
+    <ul id="ul-main" class="chat">
+
+        @foreach (var item in myMessages)
+        {
+            if (item.Role == "user")
+            {
+                <li class="message left">
+                    <img class="logo" src="images/Tor1.jpg" alt="">
+                    <p>@item.Content</p>
+            </li>
+            }
+            else
+            {
+                <li class="message right">
+                    <img class="logo" src="images/answer.png" alt="">
+                    <p>@((MarkupString)@item.Content)</p>
+            </li>
+            }
+        }
+    </ul>
+
+      <div id="divMessageSection" class="divMessageSection">
+          <div class="divInput">
+            <button id="btnClear" class="button-clear" onclick="@clearInputBox">Clear</button>
+            <input id="txtInput" class="text_input" type="text" @bind="message" placeholder="Type your message here..." />
+            <button id="btnRun" class="button-run" onclick="@GetResponseFromGPT3">Send</button>
+            @*<button id="btnRun" class="button-run" onclick="@(async () => await GetResponseFromGPT3())">Send</button>*@
+        </div>
+      </div>
+    </div>
+ 

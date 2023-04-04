@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Chat.razor.cs" />
+    <Compile Remove="Pages\ChatGPT2.razor.cs" />
+    <Compile Remove="Pages\Test.razor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Controls\RepeaterComponent.razor" />
+    <Content Remove="Pages\Chat.razor" />
+    <Content Remove="Pages\ChatGPT2.razor" />
+    <Content Remove="Pages\Counter.razor" />
+    <Content Remove="Pages\FetchData.razor" />
+    <Content Remove="Pages\TestRepeaterTemplate.razor" />
+    <Content Remove="wwwroot\images\Chat.jpg" />
+    <Content Remove="wwwroot\images\ChatGPT.jpg" />
+    <Content Remove="wwwroot\images\Dalle2_man_vs_cat_chess.png" />
+    <Content Remove="wwwroot\images\Latina_beauty_with_long_dark_brown_hair.jpg" />
+    <Content Remove="wwwroot\images\Leonardo_Davinci.jpg" />
+    <Content Remove="wwwroot\images\Leonardo_Tiger.jpg" />
+    <Content Remove="wwwroot\images\Leonardo_Tiger2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\Chat.razor.css" />
+    <None Remove="Pages\ChatGPT2.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Betalgo.OpenAI.GPT3" Version="6.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.JSInterop" Version="7.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
+
+</Project>

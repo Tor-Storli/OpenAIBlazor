@@ -1,0 +1,45 @@
+﻿@inject IJSRuntime js
+
+@page "/dalle" 
+<PageTitle>OpenAI Image Generator</PageTitle>
+<div class="row" >
+   <div class="h1 mb-4 text-center column-main header"> OpenAI - Image Generator (DALL-E 2) </div>
+
+    <br>
+ <div class="col-2">
+            <div class="form-group text-left column-main">
+                 <div style="line-height:40px;" class="h5 mb-4 text-left header-sub "> Enter your prompt in the textbox below... </div>
+            <div class="form-group text-left header-sub" style="display: flex; align-items: center;">
+                     <input class="form-control my-4 text-left py-2" style="max-width:600px;" type="text" @bind="Prompt" placeholder="what image do you want to create..." />
+                      &nbsp;&nbsp;
+                     <button class="btn btn-outline-success" style="max-width:200px;" onclick="@GetImageFromGPT3">
+                         Create Images
+                      </button>
+                  </div>
+                 <div>
+                     <button class="btn btn-outline-success mb-4 px-2" style="max-width:200px;" @onclick="@RemoveImages">Remove Images</button>
+                 </div>
+            </div>
+</div>
+<div class="col-3">
+    <div>
+            <p>@response</p>
+            <p class="paragraph">Selected Image Size:  @ImageSize</p>
+                <select class="range"  @onchange="UpdateSelectedValue">
+                <option value="256x256" selected>256x256</option>
+                <option value="512x512">512x512</option>
+                <option value="1024x1024">1024x1024</option>
+            </select>
+           </div><br />
+            <br />
+           <div>
+              <input class="range" type="range" min="0" max="4" value="@sliderImgCountValue" @oninput="@((ChangeEventArgs e) => sliderImgCountValue = (Convert.ToInt32(e.Value)))" /><br />
+            <input class="range" type="text" value="Image Count: @sliderImgCountValue" />
+           </div>
+           </div>
+           </div>
+<div>
+   <p>@((MarkupString)ImageResponse)</p>
+</div>
+
+

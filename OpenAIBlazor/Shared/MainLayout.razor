@@ -1,0 +1,104 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime js
+
+<div class="@GetCssClass()">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+
+            Theme
+            <select @onchange="ChangingTheme"   style="margin-left: 1rem">
+                @foreach (var theme in themes)
+                {
+                    <option selected="@IsSelectedTheme(theme)" value="@theme">@theme</option>
+
+                }
+            </select>
+
+            <a href="https://platform.openai.com/docs/models/gpt-3-5" target="_blank">About Models</a>
+            <a href="https://dallery.gallery/the-dalle-2-prompt-book/" target="daleinfoprompts">About Image Prompts</a>
+            <a href="https://platform.openai.com/docs/guides/images/image-generation-beta" target="_blank">About image Generation</a>
+            <a href="https://platform.openai.com/docs/models/whisper" target="_blank">About Whisper</a>
+          
+
+        </div>
+
+        <article class="content px-4">
+               @Body
+        </article>
+    </main>
+</div>
+
+
+@code {
+    //Set Startup Theme
+    private string selectedTheme = "Dark-Default";
+    private List<string> themes = new List<string> { "Light", "Dark-Default", "Dark-Blue", "Dark-Green", "Dark-Red" };
+    private string selectedNavbar = "Dark-Default";
+
+    private string GetCssClass()
+    {
+        string theme = string.Empty;
+
+        if (selectedTheme == "Light")
+        {
+            theme = "page";
+        }
+        else if (selectedTheme == "Dark-Default")
+        {
+            theme = "page dark-mode";
+        }
+        else if (selectedTheme == "Dark-Blue")
+        {
+            theme = "page dark-mode-blue";
+        }
+        else if (selectedTheme == "Dark-Green")
+        {
+            theme = "page dark-mode-green";
+        }
+        else if (selectedTheme == "Dark-Red")
+        {
+            theme = "page dark-mode-red";
+        }
+
+        return theme;
+    }
+
+    private string GetNavbarCssClass()
+    {
+
+        string navBarSelected = string.Empty;
+
+        if (selectedNavbar == "Light")
+        {
+            navBarSelected = "@NavMenuCssClass nav-scrollable";
+        }
+        else if (selectedNavbar == "Dark-Default")
+        {
+            navBarSelected = "@NavMenuCssClass nav-scrollable dark-mode";
+        }
+        else if (selectedNavbar == "Dark-Blue")
+        {
+            navBarSelected = "@NavMenuCssClass nav-scrollable dark-mode-blue";
+        }
+        else if (selectedNavbar == "Dark-Green")
+        {
+            navBarSelected = "@NavMenuCssClass nav-scrollable dark-mode-green";
+        }
+
+        return navBarSelected;
+    }
+
+    private bool IsSelectedTheme(string theme)
+    {
+        return theme == selectedTheme;
+    }
+
+    private void ChangingTheme(ChangeEventArgs e)
+    {
+        selectedTheme = e.Value.ToString();
+    }
+}

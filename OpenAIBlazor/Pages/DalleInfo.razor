@@ -1,0 +1,32 @@
+﻿@inject NavigationManager NavigationManager
+
+@page "/dalleinfo"
+<PageTitle>OpenAI Blazor </PageTitle>
+<div class="container">
+   <div style="line-height:30px;" class="h2 mb-4 text-center">Welcome to Blazor OpenAI Application </div>
+   <br />
+   <button class="btn btn-outline-success mb-4 px-2" style="max-width:200px;" onclick="@GoToAnotherPage">
+       Lets Get Started...
+   </button>
+  <br />
+</div>
+<div class="container">
+    <img class="image-fullsize" src="/images/dalle2_big.png" />
+    <div class="overlay"></div>
+      <div class="text">
+          <br />
+        <h1>DALL·E 2</h1>
+        <p>DALL·E 2 is a language model developed by OpenAI that can generate high-quality images from textual descriptions. It uses a combination of computer vision and natural language processing techniques to interpret text inputs and create unique images based on the text's description. DALL-E 2 is capable of generating a wide range of images, including objects, scenes, and even abstract concepts, and can also combine multiple concepts in a single image. This technology has potential applications in areas such as content creation, design, and visual storytelling.</p>
+        <div class="sourcetext">
+            <p>Source: ChatGPT</p>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private void GoToAnotherPage()
+    {
+        NavigationManager.NavigateTo("/dalle");
+    }
+}

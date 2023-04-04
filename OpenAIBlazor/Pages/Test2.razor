@@ -1,0 +1,184 @@
+﻿@page "/test2"
+
+<h3>Test2</h3>
+<div>
+    <ul id="ul-main" class="chat">
+        @((MarkupString)@allMarkup)
+        @*@(await(MarkupString)WriteTextAsync(lstText))*@
+    </ul>
+</div>
+
+@*<div>
+    <ul id="ul-main" class="chat">
+        @(async () => await WriteTextAsync(lstText));
+    </ul>
+</div>*@
+
+
+
+@*<p id="text">@allWords</p><br /><br /><br />
+<p>@((MarkupString)@allWords)</p>*@
+@*<div>
+    <ul id="ul-main" class="chat">
+        @foreach (var item in lstText)
+
+        @foreach (var item in lstText)
+        {
+            var icount = 0;
+            var lstCount = lstText.Count;
+
+            if (item.Role == "user")
+            {
+                <li class="message left">
+                    <img class="logo" src="images/Tor1.jpg" alt="">
+                    <p>@item.Content</p>
+                </li>
+            }
+            else
+            {
+                if (icount < lstCount - 1){
+                    <li class="message right">
+                        <img class="logo" src="images/answer.png" alt="">
+                        <p>@((MarkupString)@item.Content)</p>
+                    </li>
+                }
+                else
+                {
+                    words = text1.Split(" ");
+
+                    while (currentIndex < words.Length)
+                        {
+
+                            currentWord = "";
+                            string word = words[currentIndex];
+                            for (int i = 0; i < word.Length; i++)
+                            {
+                                currentWord += word[i];
+                            }
+                            allWords += currentWord + " ";
+                            currentIndex++;
+                            StateHasChanged();
+                            await Task.Delay(50);
+                        }
+                    };
+                }
+            }
+        }
+    </ul>
+
+
+</div>*@
+
+@code {
+
+
+    //  private string text1 = "Here is a simple recipe for making French bread:<br>Ingredients:<br>- 4 cups all-purpose flour<br>- 2 teaspoons salt<br>- 1 teaspoon sugar<br>- 1 tablespoon active dry yeast<br>- 1 1/2 cups warm water<br>Instructions:<br>1. In a large mixing bowl, combine the flour, salt, sugar, and yeast.<br>2. Add the warm water and stir until a dough forms.<br>3. Knead the dough on a floured surface for about 10 minutes, until it becomes smooth and elastic.<br>4. Place the dough in a greased bowl, cover it with a damp cloth, and let it rise in a warm place for about 1 hour, until it doubles in size.<br>5. Preheat your oven to 450°F (230°C).<br>6. Punch down the dough and shape it into a long, thin loaf.<br>7. Place the loaf on a greased baking sheet and let it rise for another 15-20 minutes.<br>8. Use a sharp knife to make a few diagonal slashes on the top of the loaf.<br>9. Bake the bread for 20-25 minutes, until it is golden brown and sounds hollow when tapped on the bottom.<br>10. Let";
+    private string[] words;
+
+    private int currentIndex = 0;
+    private string currentWord = "";
+    private string allWords = "";
+    private string allMarkup = "";
+
+    private List<ChatMessageTrail> lstText = new List<ChatMessageTrail>();
+
+    protected override void OnInitialized()
+    {
+
+        ChatMessageTrail msg = new ChatMessageTrail
+            {
+                Role = "user",
+                Content = "How do I make French Bread?"
+            };
+        lstText.Add(msg);
+
+        ChatMessageTrail msg1 = new ChatMessageTrail
+            {
+                Role = "assistant",
+                Content = "Here is a simple recipe for making French bread:<br>Ingredients:< br > -4 cups all - purpose flour < br > -2 teaspoons salt"
+            };
+        lstText.Add(msg1);
+
+        ChatMessageTrail msg2 = new ChatMessageTrail
+            {
+                Role = "user",
+                Content = "How do I make Tomato Soup?"
+            };
+        lstText.Add(msg2);
+
+        ChatMessageTrail msg3 = new ChatMessageTrail
+            {
+                Role = "assistant",
+                Content = "Here is a simple recipe for making Tomato Soup<br>Ingredients:< br > -5 cups all - purpose Tomatoes < br > -2 teaspoons salt"
+            };
+        lstText.Add(msg3);
+
+    }
+    private async Task WriteTextAsync()
+    {
+
+        var icount = 0;
+        var lstCount = lstText.Count;
+
+      
+
+        foreach (var item in lstText)
+        {
+            if (item.Role == "user")
+            {
+                allMarkup += $@"
+                    <li class=""message left"">
+                        <img class=""logo"" src=""images/Tor1.jpg"" alt="""">
+                        <p>{item.Content}</p>
+                    </li>";
+            }
+            else
+            {
+               // icount++;
+
+                if (icount < lstCount - 1)
+                {
+                    allMarkup += $@"
+                        <li class=""message right"">
+                            <img class=""logo"" src=""images/answer.png"" alt="""">
+                            <p>{item.Content}</p>
+                        </li>";
+                }
+                else
+                {
+                    var words = item.Content.Split(" ");
+                    var allWords = "";
+                    var currentIndex = 0;
+                    var currentWord = "";
+
+                    while (currentIndex < words.Length)
+                    {
+                        currentWord = "";
+                        string word = words[currentIndex];
+                        for (int i = 0; i < word.Length; i++)
+                        {
+                            currentWord += word[i];
+                        }
+                        allWords += currentWord + " ";
+                        currentIndex++;
+
+                        // Use InvokeAsync to schedule a Render cycle after each word is added to allWords
+                        await InvokeAsync(() => StateHasChanged());
+                        await Task.Delay(50);
+                    }
+
+                    allMarkup += $@"
+                        <li class=""message right"">
+                            <img class=""logo"" src=""images/answer.png"" alt="""">
+                            <p>{allWords}</p>
+                        </li>";
+                }
+            }
+            icount ++;
+        }
+       
+       // return new MarkupString(allMarkup);
+    }
+}
+
+

@@ -1,0 +1,32 @@
+﻿@typeparam TItem
+
+@foreach (var item in Items)
+{
+    @Row(item)
+}
+
+@code {
+    [Parameter]
+    public RenderFragment<TItem>? Row { get; set; }
+
+
+    [Parameter]
+    public List<TItem> Items { get; set; }
+
+
+ 
+
+}
+
+
+
+
+    //    public ChatMessageTrail(string role, string content)
+    //    {
+    //        Role = role;
+    //        Content = content;
+    //    }
+
+    //}
+
+//}

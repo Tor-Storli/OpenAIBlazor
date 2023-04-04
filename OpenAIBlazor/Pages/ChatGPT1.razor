@@ -1,0 +1,18 @@
+﻿@page "/chatgpt1"
+<PageTitle>ChatGPT </PageTitle>
+<div id="divContainer" class="chat-container">
+   
+    <ul id="ul-main" class="chat"> </ul>
+    <div id="divMessageSection" class="divMessageSection">
+        <div class="divInput">
+            <button id="btnClear" class="button-clear" onclick="@clearInputBox">Clear</button>
+            <input id="txtInput" class="text_input" type="text" @bind="message" placeholder="Type your message here..." />
+            <button id="btnRun" class="button-run" onclick="@CreateQuestionTrail">Send</button>
+            @*<button id="btnRun" class="button-run" onclick="@(async () => await GetResponseFromGPT3())">Send</button>*@
+        </div>
+    </div>
+</div>
+
+@code {
+
+}

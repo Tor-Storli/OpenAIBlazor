@@ -1,0 +1,90 @@
+﻿@page "/test" 
+@using Microsoft.AspNetCore.Components.Web
+@using System.Collections.Generic
+
+<PageTitle>Test</PageTitle>
+
+<div id="divContainer" class="chat-container">
+    <ul id="ul-main" class="chat">
+        @foreach (var item in lstText)
+        {
+            // Define icount and lstCount outside the loop to avoid resetting them on each iteration
+            var icount = 0;
+            var lstCount = lstText.Count;
+
+            if (item.Role == "user")
+            {
+                        <li class="message left">
+                            <img class="logo" src="images/Tor1.jpg" alt="">
+                            <p>@item.Content</p>
+                        </li>
+            }
+            else
+            {
+                // Increment icount on each iteration
+                icount++;
+
+                if (icount < lstCount - 1)
+                {
+                                <li class="message right">
+                                    <img class="logo" src="images/answer.png" alt="">
+                                    <p>@((MarkupString)item.Content)</p>
+                                </li>
+                }
+                else
+                {
+                    // Split the text into words outside the loop and remove the extra semicolon
+                    var words = item.Content.Split(" ");
+                    var allWords = "";
+                    var currentIndex = 0;
+                    var currentWord = "";
+
+                    while (currentIndex < words.Length)
+                    {
+                        currentWord = "";
+                        string word = words[currentIndex];
+                        for (int i = 0; i < word.Length; i++)
+                        {
+                            currentWord += word[i];
+                        }
+                        allWords += currentWord + " ";
+                        currentIndex++;
+
+                        // Remove StateHasChanged() and Task.Delay() as they are not necessary and can cause performance issues
+                    }
+
+                    // Move the closing li tag outside the while loop
+                                <li class="message right">
+                                    <img class="logo" src="images/answer1.png" alt="">
+                                    <p>@((MarkupString)allWords)</p>
+                                </li>
+                }
+            }
+        }
+    </ul>
+</div>
+@code{
+       private List<ChatMessageTrails> lstText;
+       private string? message { get; set; }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            lstText = new List<ChatMessageTrails>();
+            lstText.AddRange(new ChatMessageTrails[]
+                {
+                    new ChatMessageTrails { Role = "user", Content = "How do I make French Bread?"},
+                    new ChatMessageTrails { Role = "assistant", Content = @"<p>Making French bread is a delicious and rewarding process. Here is a simple recipe to get you started:</p><p>Ingredients:</p><ul><li>3 cups bread flour</li><li>1 tsp salt</li><li>1 tsp sugar</li><li>1 tsp active dry yeast</li><li>1 cup warm water</li></ul><p>Instructions:</p><ol><li><p>In a large mixing bowl, combine the flour, salt, sugar, and yeast.</p></li><li><p>Gradually add in the warm water, stirring with a wooden spoon until the dough comes together and forms a shaggy ball.</p></li><li><p>Turn the dough out onto a lightly floured surface and knead it for about 10 minutes, until it becomes smooth and elastic.</p></li><li><p>Place the dough in a lightly oiled bowl, cover it with a damp towel, and let it rise in a warm, draft-free place for 1-2 hours, until it doubles in size.</p></li><li><p>Preheat your oven to 450°F (230°C). Place a shallow baking dish or metal pan on the bottom rack of the oven.</p></li><li><p>Punch down the dough to release the air, and then turn it out onto a floured surface.</p></li><li><p>Shape the dough into a long, narrow loaf and place it on a lightly greased or floured baking sheet. Alternatively, you can shape the dough into rounds or baguettes.</p></li><li><p>Use a sharp knife or razor blade to make several shallow slashes across the top of the loaf. This helps the bread expand as it bakes.</p></li><li><p>Fill a spray bottle with water and mist the bread lightly before placing it in the oven. This creates steam, which helps the bread develop a crispy crust.</p></li><li><p>Bake the bread for 20-25 minutes, or until it is golden brown and sounds hollow when tapped on the bottom.</p></li><li><p>Remove the bread from the oven and let it cool on a wire rack for at least 10-15 minutes before slicing and serving.</p></li></ol><p>Enjoy your freshly baked French bread!</p>" },
+                    new ChatMessageTrails { Role = "user", Content = "What is CNN in AI and how does it work?" },
+                    new ChatMessageTrails { Role = "assistant", Content = @"<p>CNN stands for Convolutional Neural Network, which is a type of artificial neural network that is widely used in computer vision tasks such as image classification, object detection, and segmentation.</p><p>At a high level, a CNN works by taking an input image and passing it through a series of convolutional layers, followed by pooling layers and fully connected layers.</p><p>The convolutional layers apply a set of filters to the input image, each filter looking for specific patterns or features. As the filters slide across the input image, they create a feature map that highlights where these features appear in the image.</p><p>The pooling layers then downsample the feature maps, reducing the dimensionality of the data and preserving the most important features. This helps the network to generalize better and avoid overfitting.</p><p>Finally, the fully connected layers take the output from the convolutional and pooling layers and use it to classify the input image into one or more categories.</p><p>During training, the CNN learns to adjust the values of the filters in the convolutional layers to optimize its predictions based on labeled examples of input images. This process is known as backpropagation and it involves updating the weights of the network to minimize the error between the predicted and actual output.</p><p>Overall, CNNs are powerful tools for computer vision tasks and have been used in a wide range of applications, from self-driving cars to medical imaging.</p>" }
+                });
+        }
+
+      private class ChatMessageTrails
+        {
+            //“system”, “user”, or “assistant”
+            public string Role { get; set; }
+            public string Content { get; set; }
+        }
+}

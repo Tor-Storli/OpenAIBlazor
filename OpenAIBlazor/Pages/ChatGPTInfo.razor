@@ -1,0 +1,33 @@
+﻿@inject NavigationManager NavigationManager
+
+@page "/chatgptinfo" 
+<PageTitle>OpenAI Blazor </PageTitle>
+<div class="container">
+   <div style="line-height:40px;" class="h2 mb-4 text-center">Welcome to Blazor OpenAI Application </div>
+<br />
+    <button class="btn btn-outline-success mb-4 px-2" style="max-width:200px;" onclick="@GoToAnotherPage">
+        Lets Get Started...
+    </button><br />
+<div class="container">
+        <img class="image-fullsize" src="/images/dalle2_robot.png" />
+    <div class="overlay"></div>
+    <div class="text">
+        <br />
+        <h1>ChatGPT</h1>
+        <p>As a large language model, ChatGPT is designed to understand and respond to natural language queries and conversations. ChatGPT has been trained on a vast amount of text data and can perform a variety of tasks, including answering questions, generating text, completing sentences, summarizing text, translating languages, and more. ChatGPT can also learn and adapt to new information and contexts, making it a versatile tool for a range of applications. However, it's important to note that ChatGPT is not perfect and may sometimes provide inaccurate or irrelevant responses.</p>
+        <div class="sourcetext">
+            <p>Source: ChatGPT</p>
+        </div>
+    </div>
+</div>
+</div>
+@code{
+
+    private void GoToAnotherPage()
+    {
+       // NavigationManager.NavigateTo("/test3dynamic");
+       // NavigationManager.NavigateTo("/chatgpt2");
+       // NavigationManager.NavigateTo("/chatgpt1");
+       NavigationManager.NavigateTo("/chatgpt");
+    }
+}
